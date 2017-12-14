@@ -1,17 +1,21 @@
 #! /usr/bin/env python 3
 # coding : utf-8
 
+"""
+    Entry point of the program, including the main loop.
+"""
+
+import sys
 import os
-from datas.dataBase_app import GestionDB
-from datas.dict_app import Glob
 from datas.displ_app import Loop
 
 
-lp =Loop()
+
+#Instantiation of an object containing the different loops of the application
+lp = Loop()
 
 if lp.db.echec:
     sys.exit()
-
 
 
 def main_menu():
@@ -20,17 +24,17 @@ def main_menu():
     while prog_run:
 
         # Clear then show main application options
-        os.system('cls' if os.name=='nt' else 'clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("\n*** Make your choice (or <Enter> to finish):\n")
         print("*** 1) What food do you want to replace ?\n")
         print("*** 2) Find my substituted foods\n")
         print("                                               *** Your choice :", end=' ')
-        
-        choice =input()
-        os.system('cls' if os.name=='nt' else 'clear')
+
+        choice = input()
+        os.system('cls' if os.name == 'nt' else 'clear')
 
         # Open categorie menu
-        if choice =="1":
+        if choice == "1":
             choice = lp.categoriesLoop()
 
 
@@ -38,7 +42,7 @@ def main_menu():
             if choice:
                 lp.productLoop()
 
-                # Open 
+                # Open
                 if choice:
                     lp.substiProductLoop()
 
@@ -49,7 +53,7 @@ def main_menu():
                         lp.displaySubsProdLoop()
 
 
-            elif choice =="":
+            elif choice == "":
                 prog_run = False
                 break
 
@@ -58,15 +62,15 @@ def main_menu():
 
 
         # Open substitute product menu
-        elif choice =="2":
+        elif choice == "2":
             choice = lp.userProductLoop()
 
             # Open details sub products
             if choice:
                 lp.displayUserProdLoop()
-            
 
-        # Leave the program 
+
+        # Leave the program
         elif choice == "":
             prog_run = False
             break
@@ -83,8 +87,5 @@ def main_menu():
     else:
         main_menu()
 
-
-
-main_menu()
-
-
+if __name__ == '__main__':
+    main_menu()

@@ -1,28 +1,28 @@
 #! /usr/bin/env python 3
 # coding : utf-8
 
-import os
-import csv
-import requests
-#import sqlite3
+"""
+    Database Management Module.
+"""
 
 import pymysql
 pymysql.install_as_MySQLdb()
 import MySQLdb
 
-import sys
-from datas.dict_app import Glob
-
 
 
 class GestionDB():
-    """  Establishment and interfacing of a database """
+    """
+        Establishment and interfacing of a database
+    """
     def __init__(self):
-        "Establishing the connection - Creating the cursor"
+        """
+            Establishing the connection - Creating the cursor
+        """
 
         try:
-            #self.dataBase = sqlite3.connect(path_to_file +".sq3")
-            self.dataBase = MySQLdb.connect("127.0.0.1", "root", "toor", "offProject", charset='utf8')
+            self.database = MySQLdb.connect(
+                "127.0.0.1", "root", "toor", "offProject", charset='utf8')
 
         except Exception as err:
             print('Connection to the database failed : \n'\
@@ -30,41 +30,49 @@ class GestionDB():
             self.echec = 1
         else:
             print('\n*** Successful connection to the database ***')
-            self.cursor = self.dataBase.cursor()
+            self.cursor = self.database.cursor()
             self.echec = 0
 
+
     def commit(self):
-        "Save the cursor"
-        if self.dataBase:
-            self.dataBase.commit()
+        """
+            Save the cursor
+        """
+        if self.database:
+            self.database.commit()
+
 
     def close(self):
-        "Close the database"
-        if self.dataBase:
-            self.dataBase.close()
-
+        """
+            Close the database
+        """
+        if self.database:
+            self.database.close()
 
 
     def substiProdFilling(self, query):
+        """
+            Insertion of substituted products into the database.
+        """
         self.cursor.execute(query)
         response = self.cursor.fetchall()
-        for tu in response:
-            print(tu)
+        for tup_line in response:
+            print(tup_line)
             self.cursor.execute("INSERT INTO SubstiProducts (code, url, product_name,\
                 brands, categories, stores, countries, nutrition_grade_fr, nutrition_score_fr_100g)\
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", tu)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", tup_line)
 
-        self.dataBase.commit()
-        #self.dataBase.close()
-        
+        self.database.commit()
 
-        
+
     def queryExecutor(self, query):
-        "Execution of the request <query>, with possible error detection"
+        """
+            Execution of the request <query>, with possible error detection
+        """
         try:
             self.cursor.execute(query)
         except Exception as err:
-            # displays the query and the system error message :
+            # displays the query and the system error message.
             print("SQL query incorrect: \n{}\nError detected :".format(query))
             print(err)
             return 0
@@ -72,19 +80,25 @@ class GestionDB():
             response = self.cursor.fetchall()
             for index in range(0, len(response)):
                 print("{} -> {}".format(index, (response[index][0])))
-            self.dataBase.commit()
+            self.database.commit()
 
 
     def selectResult(self, index, req):
+        """
+            Return the user selection.
+        """
         index = int(index)
-        self.cursor.execute(req)        
+        self.cursor.execute(req)
         response = self.cursor.fetchall()
         response = str(response[index][0])
+        self.database.commit()
         return response
-        self.dataBase.commit()
 
 
     def selectProduct(self, query):
+        """
+            View details about user selection.
+        """
         self.cursor.execute(query)
         response = self.cursor.fetchall()
         print("Product name     -> {}".format(response[0][0]))
@@ -93,5 +107,4 @@ class GestionDB():
         print("Nutrition grade  -> {}".format(response[0][3]))
         print("url              -> {}".format(response[0][4]))
         print("Stores           -> {}".format(response[0][5]))
-        self.dataBase.commit()
-
+        self.database.commit()
