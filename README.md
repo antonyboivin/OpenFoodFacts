@@ -47,24 +47,37 @@ The user selects 1. The program asks the user the following questions and the us
 ## ...du fichier displ_app.py :
 ### class Loop(): 
 Contains all methods for selecting, substituting, and saving a product.
-All of these methods test the user's entries to avoid crashing the program with an incorrect entry (letter instead of digit, or out of bound entry)
+All of these methods test the user's entries to avoid crashing the program with an incorrect entry (letter instead of digit, or out of bound entry).
+
 **categoriesLoop ():** View categories.
+
 **productLoop ():** Display of products in the chosen category.
+
 **substiProductLoop ():** Display of a selection of substitution products.
+
 **displaySubsProdLoop ():** View details of the chosen substitution product.
+
 **userProductLoop ():** Display of substituted products, saved by the user.
+
 **displayUserProdLoop ():** View details of the substituted products saved by the user.
 
 ## ...from the database_app.py file:
 ### class GestionDB ():
 Contains all the methods related to database management, starting with the connection to the database:
+
 **commit ():** Saves the cursor.
+
 **close ():** Closes the database.
+
 **substiProdFilling ():** Insert the product data substituted by the user into the database.
+
 **queryExecutor ():** Uses the cursor to execute the queries as an argument with possible error detection.
+
 **selectResult ():** Returns the selection of the user.
+
 **selectProduct ():** Displays the details of the product selected by the user.
 
 ## ...of the dict_app file:
 ### class Glob (): 
+
 Contains all the pseudo variables of the application to allow easier settings.
