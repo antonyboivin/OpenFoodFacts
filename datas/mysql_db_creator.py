@@ -152,55 +152,6 @@ def create_database():
     db.commit()
     db.close()
 
-"""
-    # create table <Products>
-    cursor.execute("CREATE TABLE IF NOT EXISTS Products (\
-                        code BIGINT(13) NOT NULL,\
-                        url VARCHAR(250) NOT NULL,\
-                        product_name VARCHAR(250) NOT NULL,\
-                        brands VARCHAR(250),\
-                        categories VARCHAR(250) NOT NULL,\
-                        stores VARCHAR(150),\
-                        countries VARCHAR(10) NOT NULL,\
-                        nutrition_grade_fr VARCHAR(1) NOT NULL,\
-                        nutrition_score_fr_100g TINYINT(3) NOT NULL,\
-                        PRIMARY KEY (code)\
-                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;")
-
-    # create table <SubstiProducts>
-    cursor.execute("CREATE TABLE IF NOT EXISTS SubstiProducts (\
-                        code BIGINT(13) NOT NULL,\
-                        url VARCHAR(250) NOT NULL,\
-                        product_name VARCHAR(250) NOT NULL,\
-                        brands VARCHAR(250),\
-                        categories VARCHAR(250) NOT NULL,\
-                        stores VARCHAR(150),\
-                        countries VARCHAR(10) NOT NULL,\
-                        nutrition_grade_fr VARCHAR(1) NOT NULL,\
-                        nutrition_score_fr_100g TINYINT(3) NOT NULL,\
-                        PRIMARY KEY (code)\
-                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;")
-
-    # create table <Categories>
-    cursor.execute("CREATE TABLE IF NOT EXISTS Categories (\
-                        categories_id INT PRIMARY KEY AUTO_INCREMENT,\
-                        categories_name VARCHAR(250) NOT NULL,\
-                        CONSTRAINT fk_categories_name_id\
-                        FOREIGN KEY (categories_name)\
-                        REFERENCES Products(categories)\
-                        ) ENGINE=InnoDB;")
-
-CREATE TABLE IF NOT EXISTS Categories (
-categories_id INT PRIMARY KEY AUTO_INCREMENT,
-categories_name VARCHAR(250) NOT NULL,
-CONSTRAINT fk_categories_name_id
-FOREIGN KEY (categories_name)
-REFERENCES Products(categories)
-) ENGINE=InnoDB;
-
-CREATE INDEX categories_ind
-ON Products (categories);
-"""
 
 if __name__ == '__main__':
     csv_parser()
